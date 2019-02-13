@@ -9,7 +9,8 @@ class ProfileController extends Controller
 {
   public function add()
   {
-    return view('admin.profile.create');
+    print("aaa");
+    // return view('admin.profile.create');
   }
   public function create()
   {
@@ -17,7 +18,8 @@ class ProfileController extends Controller
   }
   public function edit()
   {
-    return view('admin.profile.edit');
+    print("edit");
+    // return view('admin.profile.edit');
   }
   public function update()
   {
