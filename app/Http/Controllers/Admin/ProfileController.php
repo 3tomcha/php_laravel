@@ -19,6 +19,8 @@ class ProfileController extends Controller
     $profile->fill($request->all());
     $profile->save();
 
+    // return view('admin/profile/create');
+    // print("aaa");
     return redirect('admin/profile/create');
   }
   public function edit()
