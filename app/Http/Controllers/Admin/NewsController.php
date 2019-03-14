@@ -27,6 +27,10 @@ class NewsController extends Controller
     unset($form['_token']);
     unset($form['image']);
 
+// 下記のように書いてもよい
+    // $news->title = $form['title'];
+    // $news->body = $form['body'];
+
     $news->fill($form);
     $news->save();
 

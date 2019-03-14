@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Profile;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -19,8 +21,12 @@ class ProfileController extends Controller
     $profile->fill($request->all());
     $profile->save();
 
-    // return view('admin/profile/create');
-    // print("aaa");
+    User::create([
+      'name' => '森本2',
+      'email' => 'morimoto2@tech.com',
+      'password' => Hash::make('pass2'),
+    ]);
+
     return redirect('admin/profile/create');
   }
   public function edit()
