@@ -18,14 +18,10 @@ class ProfileController extends Controller
   {
     $this->validate($request,Profile::$rules);
     $profile = new Profile;
-    $profile->fill($request->all());
+    $form = $request->all();
+    unset($form['_token']);
+    $profile->fill($form);
     $profile->save();
-
-    User::create([
-      'name' => '森本2',
-      'email' => 'morimoto2@tech.com',
-      'password' => Hash::make('pass2'),
-    ]);
 
     return redirect('admin/profile/create');
   }
@@ -33,8 +29,15 @@ class ProfileController extends Controller
   {
     return view('admin.profile.edit');
   }
-  public function update()
+  public function update(Request $request)
   {
+    $this->validate($request, Profile::$rules);
+    Profile::truncate();
+    $profile = new Profile;
+    $form = $request->all();
+    unset($form['_token']);
+    $profile->fill($form);
+    $profile->save();
     return redirect('admin/profile/edit');
   }
 }
