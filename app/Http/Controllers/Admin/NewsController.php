@@ -21,6 +21,9 @@ class NewsController extends Controller
     $form = $request->all();
 
     if(isset($form['image'])){
+      // 下記はこうも書けると思ったら型が違う、$form['image']は配列になってしまう。$request->file('image')は
+      // uploadedFileの型
+      // $path = $form['image']->store('public/image');
       $path = $request->file('image')->store('public/image');
       $news->image_path = basename($path);
     }else {

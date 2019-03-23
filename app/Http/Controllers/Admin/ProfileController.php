@@ -29,7 +29,9 @@ class ProfileController extends Controller
   }
   public function edit()
   {
-    return view('admin.profile.edit',['profile_histories'=>ProfileHistory::all()]);
+    $profile = new Profile;
+    $target_profile = $profile->find(\Auth::user()->id);
+    return view('admin.profile.edit',['profile'=>$target_profile, 'profile_histories'=>ProfileHistory::all()]);
   }
   public function update(Request $request)
   {
