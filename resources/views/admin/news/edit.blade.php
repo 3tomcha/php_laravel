@@ -35,7 +35,7 @@
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="remove" value="true">画像を削除
+                                    <input type="checkbox" class="form-check-input" name="remove">画像を削除
                                 </label>
                             </div>
                         </div>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\News;
 use App\History;
 use Carbon\Carbon;
+use Storage;
 
 class NewsController extends Controller
 {
@@ -24,8 +25,10 @@ class NewsController extends Controller
       // 下記はこうも書けると思ったら型が違う、$form['image']は配列になってしまう。$request->file('image')は
       // uploadedFileの型
       // $path = $form['image']->store('public/image');
-      $path = $request->file('image')->store('public/image');
-      $news->image_path = basename($path);
+      // $path = $request->file('image')->store('public/image');
+      // $news->image_path = basename($path);
+      $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
+      $news->image_path = Storage::disk('s3')->url($path);
     }else {
       $news->image_path = null;
     }
@@ -67,14 +70,18 @@ class NewsController extends Controller
   public function update(Request $request)
   {
     $this->validate($request, News::$rules);
-    $news = News::find($request->id);
+    $news = News::find($request->input('id'));
+    // $news = News::find($request->id);
     $news_form = $request->all();
 
-    if ($request->remove == 'true') {
+    // if ($request->remove == 'true') {
+    if ($request->input('remove')) {
       $news_form['image_path'] = null;
     } elseif ($request->file('image')) {
-      $path = $request->file('image')->store('public/image');
-      $news_form['image_path'] = basename($path);
+      // $path = $request->file('image')->store('public/image');
+      // $news_form['image_path'] = basename($path);
+      $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
+      $news_form['image_path'] = Storage::disk('s3')->url($path);
     } else {
       $news_form['image_path'] = $news->image_path;
     }

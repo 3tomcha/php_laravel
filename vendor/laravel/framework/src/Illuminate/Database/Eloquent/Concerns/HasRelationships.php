@@ -715,6 +715,7 @@ trait HasRelationships
      */
     public function setRelation($relation, $value)
     {
+      dump($value);
         $this->relations[$relation] = $value;
 
         return $this;
